@@ -18,7 +18,14 @@ const usersSchema = new Schema<User>({
 
   age: Number,
 
-  author: [
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+
+  opps: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',

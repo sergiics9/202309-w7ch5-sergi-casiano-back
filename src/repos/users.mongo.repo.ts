@@ -36,9 +36,20 @@ export class UsersMongoRepo implements Repository<User> {
     return result;
   }
 
-  // eslint-disable-next-line no-unused-vars
-  search({ key, value }: { key: string; value: unknown }): Promise<User[]> {
-    throw new Error('Method not implemented.');
+  async search({
+    key,
+    value,
+  }: {
+    key: keyof User;
+    value: any;
+  }): Promise<User[]> {
+    const result = await UserModel.find({ [key]: value })
+      .populate('author', {
+        users: 0,
+      })
+      .exec();
+
+    return result;
   }
 
   async update(id: string, updatedItem: Partial<User>): Promise<User> {
@@ -49,7 +60,89 @@ export class UsersMongoRepo implements Repository<User> {
     return result;
   }
 
-  delete(_id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async addFriend(id: string, updatedItem: Partial<User>): Promise<User> {
+    const user = await UserModel.findById(updatedItem.id).exec();
+    if (!user) {
+      throw new HttpError(404, 'Not Found', 'User not found');
+    }
+
+    if (user.friends.includes(id as unknown as User)) {
+      return user;
+    }
+
+    if (user.opps.includes(id as unknown as User)) {
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        updatedItem.id,
+        { $pull: { opps: id } },
+        {
+          new: true,
+        }
+      ).exec();
+
+      if (!updatedUser) {
+        throw new HttpError(404, 'Not Found', 'Update not possible');
+      }
+    }
+
+    // Actualizar la lista de amigos
+    const result = await UserModel.findByIdAndUpdate(
+      updatedItem.id,
+      { $push: { friends: id } },
+      {
+        new: true,
+      }
+    ).exec();
+
+    if (!result) {
+      throw new HttpError(404, 'Not Found', 'Update not possible');
+    }
+
+    return result;
+  }
+
+  async addEnemy(id: string, updatedItem: Partial<User>): Promise<User> {
+    const user = await UserModel.findById(updatedItem.id).exec();
+    if (!user) {
+      throw new HttpError(404, 'Not Found', 'User not found');
+    }
+
+    if (user.opps.includes(id as unknown as User)) {
+      return user;
+    }
+
+    if (user.friends.includes(id as unknown as User)) {
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        updatedItem.id,
+        { $pull: { friends: id } },
+        {
+          new: true,
+        }
+      ).exec();
+
+      if (!updatedUser) {
+        throw new HttpError(404, 'Not Found', 'Update not possible');
+      }
+    }
+
+    const result = await UserModel.findByIdAndUpdate(
+      updatedItem.id,
+      { $push: { opps: id } },
+      {
+        new: true,
+      }
+    ).exec();
+
+    if (!result) {
+      throw new HttpError(404, 'Not Found', 'Update not possible');
+    }
+
+    return result;
+  }
+
+  async delete(id: string): Promise<void> {
+    const result = await UserModel.findByIdAndDelete(id).exec();
+    if (!result) {
+      throw new HttpError(404, 'Not Found', 'Delete not possible');
+    }
   }
 }

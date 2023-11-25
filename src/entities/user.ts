@@ -1,5 +1,3 @@
-export type Relation = 'friend' | 'opp' | 'stranger';
-
 export type LoginUser = {
   email: string;
   passwd: string;
@@ -10,8 +8,6 @@ export type User = LoginUser & {
   name: string;
   surname: string;
   age: number;
-  relation: Relation;
   friends: User[];
   opps: User[];
-  author: User;
 };
