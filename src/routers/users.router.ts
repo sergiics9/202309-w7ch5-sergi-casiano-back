@@ -4,7 +4,7 @@ import createDebug from 'debug';
 import { UsersMongoRepo } from '../repos/users.mongo.repo.js';
 import { AuthInterceptor } from '../middleware/auth.interceptor.js';
 
-const debug = createDebug('SKINS:users:router');
+const debug = createDebug('Users:users:router');
 
 export const usersRouter = createRouter();
 debug('Starting');

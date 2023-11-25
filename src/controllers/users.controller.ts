@@ -5,7 +5,7 @@ import { Auth } from '../services/auth.js';
 import { User } from '../entities/user.js';
 import { Controller } from './controller.js';
 
-const debug = createDebug('SKINS:users:controller');
+const debug = createDebug('Users:users:controller');
 
 export class UsersController extends Controller<User> {
   constructor(protected repo: UsersMongoRepo) {
