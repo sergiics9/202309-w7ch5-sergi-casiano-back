@@ -5,7 +5,7 @@ import { UserModel } from './users.mongo.model.js';
 import { HttpError } from '../types/http.error.js';
 import { Auth } from '../services/auth.js';
 
-const debug = createDebug('SKINS:users:mongo:repo');
+const debug = createDebug('Users:users:mongo:repo');
 
 export class UsersMongoRepo implements Repository<User> {
   constructor() {

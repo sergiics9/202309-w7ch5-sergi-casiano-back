@@ -5,7 +5,7 @@ import { User } from '../entities/user.js';
 import createDebug from 'debug';
 import { HttpError } from '../types/http.error.js';
 
-const debug = createDebug('SKINS:skins:router');
+const debug = createDebug('Users:users:router');
 debug('Imported');
 
 export type TokenPayload = {

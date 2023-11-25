@@ -18,10 +18,10 @@ const usersSchema = new Schema<User>({
 
   age: Number,
 
-  skins: [
+  author: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Skin',
+      ref: 'User',
     },
   ],
 });

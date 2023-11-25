@@ -3,7 +3,7 @@ import { app } from './app.js';
 import createDebug from 'debug';
 import { dbConnect } from './services/db.connect.js';
 
-const debug = createDebug('SKINS:index');
+const debug = createDebug('Users:index');
 const PORT = process.env.PORT || 2700;
 const server = createServer(app);
 debug('Starting server');
