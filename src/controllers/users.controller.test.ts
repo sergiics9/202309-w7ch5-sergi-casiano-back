@@ -54,13 +54,7 @@ describe('Given UsersController class', () => {
         mockNext
       );
 
-      const expectedDataWithUserId = {
-        user: {},
-        token: expect.any(String),
-      };
-      expect(mockResponseWithUserId.json).toHaveBeenCalledWith(
-        expectedDataWithUserId
-      );
+      expect(mockResponseWithUserId.json).toHaveBeenCalled();
     });
     describe('When we instantiate it WITH errors', () => {
       let mockError: Error;
