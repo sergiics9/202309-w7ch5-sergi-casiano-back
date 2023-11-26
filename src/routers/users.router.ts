@@ -13,9 +13,9 @@ const repo = new UsersMongoRepo();
 const controller = new UsersController(repo);
 const interceptor = new AuthInterceptor();
 
-usersRouter.get('/', controller.getAll.bind(controller)); // Ver todos los usuarios
-usersRouter.post('/register', controller.create.bind(controller)); // Crear usuario
-usersRouter.post('/login', controller.login.bind(controller)); // Hacer log in
+usersRouter.get('/', controller.getAll.bind(controller));
+usersRouter.post('/register', controller.create.bind(controller));
+usersRouter.post('/login', controller.login.bind(controller));
 usersRouter.patch(
   '/add-friend/:id',
   interceptor.authorization.bind(interceptor),

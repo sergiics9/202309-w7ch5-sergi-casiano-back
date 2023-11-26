@@ -84,7 +84,6 @@ export class UsersMongoRepo implements Repository<User> {
       }
     }
 
-    // Actualizar la lista de amigos
     const result = await UserModel.findByIdAndUpdate(
       updatedItem.id,
       { $push: { friends: id } },
