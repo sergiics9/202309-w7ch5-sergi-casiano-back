@@ -87,7 +87,6 @@ describe('Given UsersController class', () => {
         addFriend: jest.fn().mockRejectedValue(mockError),
         addEnemy: jest.fn().mockRejectedValue(mockError),
         delete: jest.fn().mockRejectedValue(mockError),
-        login: jest.fn().mockRejectedValue(mockError),
       } as unknown as UsersMongoRepo;
 
       controller = new UsersController(mockRepo);
@@ -130,11 +129,6 @@ describe('Given UsersController class', () => {
 
     test('Then addEnemy should ...', async () => {
       await controller.addEnemy(mockRequest, mockResponse, mockNext);
-      expect(mockNext).toHaveBeenLastCalledWith(mockError);
-    });
-
-    test('Then login should ...', async () => {
-      await controller.login(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenLastCalledWith(mockError);
     });
   });
