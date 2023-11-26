@@ -30,7 +30,7 @@ export class AuthInterceptor {
       const usersID = req.params.id;
       const repoUsers = new UsersMongoRepo();
       const user = await repoUsers.getById(usersID);
-      if (user.author.id !== userID)
+      if (user.id !== userID)
         throw new HttpError(401, 'Unauthorized', 'User not valid');
       next();
     } catch (error) {
