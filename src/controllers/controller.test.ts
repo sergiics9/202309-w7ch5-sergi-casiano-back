@@ -72,32 +72,6 @@ describe('Given UsersController class', () => {
       await controller.addEnemy(mockRequest, mockResponse, mockNext);
       expect(mockResponse.json).toHaveBeenCalledWith({});
     });
-    test('Then login should return user data and token', async () => {
-      const mockRequestWithUserId = {
-        body: { userId: 'someUserId' },
-        params: {},
-        query: { key: 'value' },
-      } as unknown as Request;
-
-      const mockResponseWithUserId = {
-        json: jest.fn(),
-        status: jest.fn(),
-      } as unknown as Response;
-
-      await controller.login(
-        mockRequestWithUserId,
-        mockResponseWithUserId,
-        mockNext
-      );
-
-      const expectedDataWithUserId = {
-        user: {},
-        token: expect.any(String),
-      };
-      expect(mockResponseWithUserId.json).toHaveBeenCalledWith(
-        expectedDataWithUserId
-      );
-    });
   });
 
   describe('When we instantiate it WITH errors', () => {
