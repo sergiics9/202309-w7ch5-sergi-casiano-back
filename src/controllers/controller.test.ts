@@ -72,32 +72,6 @@ describe('Given UsersController class', () => {
       await controller.addEnemy(mockRequest, mockResponse, mockNext);
       expect(mockResponse.json).toHaveBeenCalledWith({});
     });
-    test('Then login should return user data and token', async () => {
-      const mockRequestWithUserId = {
-        body: { userId: 'someUserId' },
-        params: {},
-        query: { key: 'value' },
-      } as unknown as Request;
-
-      const mockResponseWithUserId = {
-        json: jest.fn(),
-        status: jest.fn(),
-      } as unknown as Response;
-
-      await controller.login(
-        mockRequestWithUserId,
-        mockResponseWithUserId,
-        mockNext
-      );
-
-      const expectedDataWithUserId = {
-        user: {},
-        token: expect.any(String),
-      };
-      expect(mockResponseWithUserId.json).toHaveBeenCalledWith(
-        expectedDataWithUserId
-      );
-    });
   });
 
   describe('When we instantiate it WITH errors', () => {
@@ -113,7 +87,6 @@ describe('Given UsersController class', () => {
         addFriend: jest.fn().mockRejectedValue(mockError),
         addEnemy: jest.fn().mockRejectedValue(mockError),
         delete: jest.fn().mockRejectedValue(mockError),
-        login: jest.fn().mockRejectedValue(mockError),
       } as unknown as UsersMongoRepo;
 
       controller = new UsersController(mockRepo);
@@ -156,11 +129,6 @@ describe('Given UsersController class', () => {
 
     test('Then addEnemy should ...', async () => {
       await controller.addEnemy(mockRequest, mockResponse, mockNext);
-      expect(mockNext).toHaveBeenLastCalledWith(mockError);
-    });
-
-    test('Then login should ...', async () => {
-      await controller.login(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenLastCalledWith(mockError);
     });
   });

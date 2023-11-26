@@ -6,8 +6,6 @@ export interface Repository<X extends { id: unknown }> {
   create(_newItem: Omit<X, 'id'>): Promise<X>;
   addFriend(_id: X['id'], _updatedItem: Partial<X>): Promise<X>;
   addEnemy(_id: X['id'], _updatedItem: Partial<X>): Promise<X>;
-
   update(_id: X['id'], _updatedItem: Partial<X>): Promise<X>;
-
   delete(_id: X['id']): Promise<void>;
 }
